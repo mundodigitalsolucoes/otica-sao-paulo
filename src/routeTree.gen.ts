@@ -13,8 +13,10 @@ import { Route as OculosDeSolRouteImport } from './routes/oculos-de-sol'
 import { Route as OculosDeGrauRouteImport } from './routes/oculos-de-grau'
 import { Route as LentesDeContatoRouteImport } from './routes/lentes-de-contato'
 import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AjusteEConsertoRouteImport } from './routes/ajuste-e-conserto'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const OculosDeSolRoute = OculosDeSolRouteImport.update({
   id: '/oculos-de-sol',
@@ -36,6 +38,11 @@ const ContatoRoute = ContatoRouteImport.update({
   path: '/contato',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AjusteEConsertoRoute = AjusteEConsertoRouteImport.update({
   id: '/ajuste-e-conserto',
   path: '/ajuste-e-conserto',
@@ -46,62 +53,80 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/ajuste-e-conserto': typeof AjusteEConsertoRoute
+  '/blog': typeof BlogRouteWithChildren
   '/contato': typeof ContatoRoute
   '/lentes-de-contato': typeof LentesDeContatoRoute
   '/oculos-de-grau': typeof OculosDeGrauRoute
   '/oculos-de-sol': typeof OculosDeSolRoute
+  '/blog/$slug': typeof BlogSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/ajuste-e-conserto': typeof AjusteEConsertoRoute
+  '/blog': typeof BlogRouteWithChildren
   '/contato': typeof ContatoRoute
   '/lentes-de-contato': typeof LentesDeContatoRoute
   '/oculos-de-grau': typeof OculosDeGrauRoute
   '/oculos-de-sol': typeof OculosDeSolRoute
+  '/blog/$slug': typeof BlogSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/ajuste-e-conserto': typeof AjusteEConsertoRoute
+  '/blog': typeof BlogRouteWithChildren
   '/contato': typeof ContatoRoute
   '/lentes-de-contato': typeof LentesDeContatoRoute
   '/oculos-de-grau': typeof OculosDeGrauRoute
   '/oculos-de-sol': typeof OculosDeSolRoute
+  '/blog/$slug': typeof BlogSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/ajuste-e-conserto'
+    | '/blog'
     | '/contato'
     | '/lentes-de-contato'
     | '/oculos-de-grau'
     | '/oculos-de-sol'
+    | '/blog/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/ajuste-e-conserto'
+    | '/blog'
     | '/contato'
     | '/lentes-de-contato'
     | '/oculos-de-grau'
     | '/oculos-de-sol'
+    | '/blog/$slug'
   id:
     | '__root__'
     | '/'
     | '/ajuste-e-conserto'
+    | '/blog'
     | '/contato'
     | '/lentes-de-contato'
     | '/oculos-de-grau'
     | '/oculos-de-sol'
+    | '/blog/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AjusteEConsertoRoute: typeof AjusteEConsertoRoute
+  BlogRoute: typeof BlogRouteWithChildren
   ContatoRoute: typeof ContatoRoute
   LentesDeContatoRoute: typeof LentesDeContatoRoute
   OculosDeGrauRoute: typeof OculosDeGrauRoute
@@ -138,6 +163,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContatoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ajuste-e-conserto': {
       id: '/ajuste-e-conserto'
       path: '/ajuste-e-conserto'
@@ -152,12 +184,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
   }
 }
+
+interface BlogRouteChildren {
+  BlogSlugRoute: typeof BlogSlugRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogSlugRoute: BlogSlugRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AjusteEConsertoRoute: AjusteEConsertoRoute,
+  BlogRoute: BlogRouteWithChildren,
   ContatoRoute: ContatoRoute,
   LentesDeContatoRoute: LentesDeContatoRoute,
   OculosDeGrauRoute: OculosDeGrauRoute,
@@ -166,3 +216,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
