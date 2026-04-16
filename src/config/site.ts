@@ -86,5 +86,6 @@ export const navLinks = [
   { to: "/oculos-de-sol", label: "Óculos de Sol" },
   { to: "/lentes-de-contato", label: "Lentes de Contato" },
   { to: "/ajuste-e-conserto", label: "Ajuste e Conserto" },
+  { to: "/blog", label: "Blog" },
   { to: "/contato", label: "Contato" },
 ] as const;
