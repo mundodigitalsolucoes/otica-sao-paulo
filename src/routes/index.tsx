@@ -207,12 +207,20 @@ function HomePage() {
       </section>
 
       {/* TRUST BAR */}
-      <section className="border-y border-border bg-card" aria-label="Pilares de confiança">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-10 gap-y-4 px-4 py-6 sm:px-6 lg:px-8">
+      <section
+        className="relative overflow-hidden bg-[var(--gradient-brand)] text-white"
+        aria-label="Pilares de confiança"
+      >
+        <div className="absolute inset-0 opacity-15 [background-image:radial-gradient(circle_at_20%_30%,white_0,transparent_40%),radial-gradient(circle_at_80%_70%,white_0,transparent_40%)]" />
+        <div className="relative mx-auto grid max-w-7xl grid-cols-2 gap-x-6 gap-y-6 px-4 py-10 sm:px-6 md:grid-cols-3 lg:grid-cols-5 lg:px-8 lg:py-12">
           {trustItems.map((t) => (
-            <div key={t.label} className="flex items-center gap-2 text-sm font-medium text-foreground/75">
-              <t.icon className="h-4 w-4 text-brand-orange" />
-              {t.label}
+            <div key={t.label} className="flex items-center gap-3">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/30 backdrop-blur-sm">
+                <t.icon className="h-5 w-5 text-white" strokeWidth={2.2} />
+              </span>
+              <span className="text-sm font-semibold leading-tight text-white sm:text-[15px]">
+                {t.label}
+              </span>
             </div>
           ))}
         </div>
@@ -340,10 +348,11 @@ function HomePage() {
       </section>
 
       {/* ESTILO E AUTOESTIMA */}
-      <section className="bg-brand-dark py-20 text-white sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden bg-[var(--gradient-brand)] py-20 text-white sm:py-24">
+        <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_15%_20%,white_0,transparent_45%),radial-gradient(circle_at_85%_80%,white_0,transparent_45%)]" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-orange">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/85">
               Estilo e autoestima
             </p>
             <h2 className="mt-3 text-4xl font-semibold sm:text-5xl">
