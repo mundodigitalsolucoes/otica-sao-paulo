@@ -39,7 +39,7 @@ function BlogIndex() {
       <PageHero
         eyebrow="Blog"
         title="Conteúdo de quem cuida da sua visão"
-        subtitle="Dicas práticas, orientações claras e novidades do mundo das óticas — feitas pela equipe da Ótica São Paulo."
+        intro="Dicas práticas, orientações claras e novidades do mundo das óticas — feitas pela equipe da Ótica São Paulo."
       />
 
       <section className="py-16 sm:py-20">

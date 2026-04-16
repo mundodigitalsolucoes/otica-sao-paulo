@@ -84,7 +84,7 @@ function BlogPost() {
         </div>
 
         <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
-          {post.content.map((block, i) => {
+          {post.content.map((block, i: number) => {
             if (block.type === "h2") {
               return (
                 <h2
@@ -98,7 +98,7 @@ function BlogPost() {
             if (block.type === "ul") {
               return (
                 <ul key={i} className="mt-6 space-y-3 text-lg text-foreground/85">
-                  {block.items?.map((item) => (
+                  {block.items?.map((item: string) => (
                     <li key={item} className="flex items-start gap-3">
                       <span className="mt-2.5 inline-block h-2 w-2 shrink-0 rounded-full bg-brand" />
                       {item}
