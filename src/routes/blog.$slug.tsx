@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Calendar, Clock, ArrowLeft, MessageCircle } from "lucide-react";
 import { siteConfig, buildWhatsAppUrl, whatsappMessages } from "@/config/site";
-import { blogPosts, getPostBySlug } from "@/data/blog";
+import { blogPosts, getPostBySlug, type BlogPost } from "@/data/blog";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
@@ -84,7 +84,7 @@ function BlogPost() {
         </div>
 
         <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
-          {post.content.map((block, i: number) => {
+          {post.content.map((block: BlogPost["content"][number], i: number) => {
             if (block.type === "h2") {
               return (
                 <h2
