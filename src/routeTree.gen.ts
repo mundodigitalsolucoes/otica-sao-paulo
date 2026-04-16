@@ -9,8 +9,38 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as OculosDeSolRouteImport } from './routes/oculos-de-sol'
+import { Route as OculosDeGrauRouteImport } from './routes/oculos-de-grau'
+import { Route as LentesDeContatoRouteImport } from './routes/lentes-de-contato'
+import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as AjusteEConsertoRouteImport } from './routes/ajuste-e-conserto'
 import { Route as IndexRouteImport } from './routes/index'
 
+const OculosDeSolRoute = OculosDeSolRouteImport.update({
+  id: '/oculos-de-sol',
+  path: '/oculos-de-sol',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OculosDeGrauRoute = OculosDeGrauRouteImport.update({
+  id: '/oculos-de-grau',
+  path: '/oculos-de-grau',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LentesDeContatoRoute = LentesDeContatoRouteImport.update({
+  id: '/lentes-de-contato',
+  path: '/lentes-de-contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AjusteEConsertoRoute = AjusteEConsertoRouteImport.update({
+  id: '/ajuste-e-conserto',
+  path: '/ajuste-e-conserto',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +49,102 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ajuste-e-conserto': typeof AjusteEConsertoRoute
+  '/contato': typeof ContatoRoute
+  '/lentes-de-contato': typeof LentesDeContatoRoute
+  '/oculos-de-grau': typeof OculosDeGrauRoute
+  '/oculos-de-sol': typeof OculosDeSolRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ajuste-e-conserto': typeof AjusteEConsertoRoute
+  '/contato': typeof ContatoRoute
+  '/lentes-de-contato': typeof LentesDeContatoRoute
+  '/oculos-de-grau': typeof OculosDeGrauRoute
+  '/oculos-de-sol': typeof OculosDeSolRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ajuste-e-conserto': typeof AjusteEConsertoRoute
+  '/contato': typeof ContatoRoute
+  '/lentes-de-contato': typeof LentesDeContatoRoute
+  '/oculos-de-grau': typeof OculosDeGrauRoute
+  '/oculos-de-sol': typeof OculosDeSolRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/ajuste-e-conserto'
+    | '/contato'
+    | '/lentes-de-contato'
+    | '/oculos-de-grau'
+    | '/oculos-de-sol'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/ajuste-e-conserto'
+    | '/contato'
+    | '/lentes-de-contato'
+    | '/oculos-de-grau'
+    | '/oculos-de-sol'
+  id:
+    | '__root__'
+    | '/'
+    | '/ajuste-e-conserto'
+    | '/contato'
+    | '/lentes-de-contato'
+    | '/oculos-de-grau'
+    | '/oculos-de-sol'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AjusteEConsertoRoute: typeof AjusteEConsertoRoute
+  ContatoRoute: typeof ContatoRoute
+  LentesDeContatoRoute: typeof LentesDeContatoRoute
+  OculosDeGrauRoute: typeof OculosDeGrauRoute
+  OculosDeSolRoute: typeof OculosDeSolRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/oculos-de-sol': {
+      id: '/oculos-de-sol'
+      path: '/oculos-de-sol'
+      fullPath: '/oculos-de-sol'
+      preLoaderRoute: typeof OculosDeSolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/oculos-de-grau': {
+      id: '/oculos-de-grau'
+      path: '/oculos-de-grau'
+      fullPath: '/oculos-de-grau'
+      preLoaderRoute: typeof OculosDeGrauRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lentes-de-contato': {
+      id: '/lentes-de-contato'
+      path: '/lentes-de-contato'
+      fullPath: '/lentes-de-contato'
+      preLoaderRoute: typeof LentesDeContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ajuste-e-conserto': {
+      id: '/ajuste-e-conserto'
+      path: '/ajuste-e-conserto'
+      fullPath: '/ajuste-e-conserto'
+      preLoaderRoute: typeof AjusteEConsertoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +157,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AjusteEConsertoRoute: AjusteEConsertoRoute,
+  ContatoRoute: ContatoRoute,
+  LentesDeContatoRoute: LentesDeContatoRoute,
+  OculosDeGrauRoute: OculosDeGrauRoute,
+  OculosDeSolRoute: OculosDeSolRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
