@@ -1,8 +1,21 @@
+const env = import.meta.env;
+
+const googlePlaceId = env.VITE_GOOGLE_PLACE_ID?.trim() || "";
+const siteUrl = env.VITE_SITE_URL?.trim() || "https://oticasaopaulo.com.br";
+const gtmId = env.VITE_GTM_ID?.trim() || "";
+
+function buildGoogleReviewUrl(mode: "read" | "write", fallbackUrl: string) {
+  if (!googlePlaceId) return fallbackUrl;
+
+  return mode === "write"
+    ? `https://search.google.com/local/writereview?placeid=${googlePlaceId}`
+    : `https://search.google.com/local/reviews?placeid=${googlePlaceId}`;
+}
+
 /**
  * Configuração central editável da Ótica São Paulo.
- * Todos os dados de contato, endereço e redes ficam aqui.
+ * Todos os dados de contato, endereço, SEO e mensuração ficam aqui.
  */
-
 export const siteConfig = {
   name: "Ótica São Paulo",
   shortName: "Ótica São Paulo",
@@ -11,7 +24,10 @@ export const siteConfig = {
   cityShort: "Rio Preto",
   state: "SP",
   description:
-    "Ótica tradicional em São José do Rio Preto desde 1976. Óculos de grau, óculos de sol, lentes de contato, ajustes e consertos com atendimento humanizado.",
+    "Ótica tradicional em São José do Rio Preto desde 1976. Óculos de grau, óculos de sol, lentes de contato, ajustes e consertos com atendimento humanizado e orientação especializada.",
+  primaryHeadline: "Tradição para cuidar da sua visão. Modernização para facilitar sua escolha.",
+  primarySubheadline:
+    "Desde 1976, a Ótica São Paulo atende gerações em Rio Preto com orientação especializada, atendimento humanizado e soluções para enxergar melhor com conforto e estilo.",
 
   // Endereço
   address: {
@@ -50,14 +66,30 @@ export const siteConfig = {
 
   // Google Business
   googleBusinessUrl: "https://www.google.com/search?q=Ótica+São+Paulo+São+José+do+Rio+Preto",
-  googleReviewsUrl:
-    "https://search.google.com/local/reviews?placeid=YOUR_PLACE_ID",
-  googleWriteReviewUrl:
-    "https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID",
-  googlePlaceId: "YOUR_PLACE_ID", // configurar com Place ID real
+  googlePlaceId,
+  googleReviewsUrl: buildGoogleReviewUrl(
+    "read",
+    "https://www.google.com/search?q=Ótica+São+Paulo+São+José+do+Rio+Preto"
+  ),
+  googleWriteReviewUrl: buildGoogleReviewUrl(
+    "write",
+    "https://www.google.com/search?q=Ótica+São+Paulo+São+José+do+Rio+Preto"
+  ),
 
-  // SEO
-  url: "https://oticasaopaulo.com.br",
+  // SEO / mensuração
+  url: siteUrl,
+  gtmId,
+  defaultOgImage: `${siteUrl}/favicon.png`,
+  keywords: [
+    "ótica em São José do Rio Preto",
+    "ótica em Rio Preto",
+    "óculos de grau em Rio Preto",
+    "óculos de sol em Rio Preto",
+    "lentes de contato em Rio Preto",
+    "ajuste de óculos em Rio Preto",
+    "conserto de óculos em Rio Preto",
+    "ótica no centro de Rio Preto",
+  ],
 } as const;
 
 /**
@@ -71,13 +103,16 @@ export const whatsappMessages = {
   lentes: "Olá! Vim pelo site e quero saber sobre lentes de contato.",
   ajuste:
     "Olá! Vim pelo site e gostaria de informações sobre ajuste ou conserto de óculos.",
-  como_chegar:
-    "Olá! Vim pelo site e quero confirmar a localização da Ótica São Paulo.",
+  como_chegar: "Olá! Vim pelo site e quero confirmar a localização da Ótica São Paulo.",
   consultivo: "Olá! Vim pelo site e gostaria de um atendimento consultivo.",
 } as const;
 
 export function buildWhatsAppUrl(message: string = whatsappMessages.default) {
   return `https://wa.me/${siteConfig.whatsappRaw}?text=${encodeURIComponent(message)}`;
+}
+
+export function getCanonicalUrl(pathname: string = "/") {
+  return `${siteConfig.url}${pathname === "/" ? "" : pathname}`;
 }
 
 export const navLinks = [
