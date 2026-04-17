@@ -9,12 +9,7 @@ export const Route = createFileRoute("/lentes-de-contato")({
       { title: `Lentes de Contato em ${siteConfig.city} | ${siteConfig.name}` },
       {
         name: "description",
-        content: `Lentes de contato em ${siteConfig.city} (Rio Preto): gelatinosas, tóricas e multifocais com orientação especializada. Tradição desde ${siteConfig.foundedYear}.`,
-      },
-      { property: "og:title", content: `Lentes de Contato em ${siteConfig.city}` },
-      {
-        property: "og:description",
-        content: "Orientação especializada sobre uso, higiene e adaptação.",
+        content: `Lentes de contato em ${siteConfig.city}: gelatinosas, tóricas e multifocais com orientação especializada e suporte na adaptação.`,
       },
     ],
   }),
@@ -22,12 +17,10 @@ export const Route = createFileRoute("/lentes-de-contato")({
 });
 
 const benefits = [
-  "Lentes gelatinosas de uso diário, mensal e anual",
-  "Lentes tóricas para astigmatismo",
-  "Lentes multifocais para presbiopia",
-  "Orientação completa sobre uso e higiene",
-  "Acompanhamento na adaptação",
-  "Marcas reconhecidas e seguras",
+  "Lentes gelatinosas, tóricas e multifocais",
+  "Orientação sobre adaptação, uso e higiene",
+  "Suporte para rotina, conforto e segurança",
+  "Marcas reconhecidas e atendimento consultivo",
 ];
 
 function Page() {
@@ -35,21 +28,19 @@ function Page() {
     <>
       <PageHero
         eyebrow="Lentes de Contato"
-        title={`Lentes de contato em ${siteConfig.cityShort} com orientação cuidadosa`}
-        intro="Trabalhamos com as principais marcas e tipos de lentes. Orientamos você desde a escolha até a adaptação, com segurança e atenção ao seu conforto."
-        heroImage="https://images.unsplash.com/photo-1583156093411-6f3a9b71d96d?auto=format&fit=crop&w=1400&q=80"
+        title={`Lentes de contato em ${siteConfig.cityShort} com mais segurança na adaptação`}
+        intro="Usar lente de contato exige orientação certa. Nossa equipe ajuda você a escolher, adaptar e cuidar melhor no dia a dia."
+        heroImage="/images/home/especialistas-otica-sao-paulo.jpg"
       />
 
       <section className="py-20 sm:py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
           <div>
             <h2 className="text-3xl font-semibold text-foreground sm:text-4xl">
-              Lentes de contato com segurança e suporte
+              Atendimento próximo do primeiro teste ao uso diário
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-              Usar lentes de contato exige orientação. Nossa equipe explica passo a passo como
-              colocar, retirar, higienizar e armazenar suas lentes — para que você tenha conforto e
-              tranquilidade no dia a dia.
+              A escolha da lente certa muda conforto, praticidade e adaptação. Por isso explicamos com calma cada detalhe importante antes da decisão.
             </p>
             <ul className="mt-8 space-y-3">
               {benefits.map((b) => (
@@ -62,19 +53,24 @@ function Page() {
               ))}
             </ul>
           </div>
-          <div className="rounded-2xl bg-[var(--gradient-warm)] p-8 sm:p-10">
-            <h3 className="font-display text-2xl font-semibold text-foreground">
-              Tire dúvidas sobre lentes
-            </h3>
+          <div className="rounded-[30px] bg-muted/80 p-8 shadow-[var(--shadow-card)] sm:p-10">
+            <img
+              src="/images/home/vitrine-oculos-grau.jpg"
+              alt="Armações e ambiente da loja"
+              loading="lazy"
+              width={1080}
+              height={1440}
+              className="aspect-[4/5] w-full rounded-[24px] object-cover"
+            />
+            <h3 className="mt-6 text-2xl font-semibold text-foreground">Tire dúvidas pelo WhatsApp</h3>
             <p className="mt-3 text-muted-foreground">
-              Envie sua receita ou conte qual tipo de lente você procura. Respondemos pelo WhatsApp
-              com clareza.
+              Conte qual tipo de lente você procura ou envie sua receita para receber orientação da equipe.
             </p>
             <a
               href={buildWhatsAppUrl(whatsappMessages.lentes)}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand px-7 py-4 text-base font-semibold text-brand-foreground shadow-[var(--shadow-elegant)] transition hover:scale-105"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--gradient-brand)] px-7 py-4 text-base font-semibold text-white shadow-[var(--shadow-elegant)] transition hover:scale-[1.02]"
             >
               <MessageCircle className="h-5 w-5" /> Falar no WhatsApp
             </a>

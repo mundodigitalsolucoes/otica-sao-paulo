@@ -1,28 +1,20 @@
-# Pacote de substituição local — Ótica São Paulo
+Substitua estes arquivos no seu projeto local:
 
-## Como aplicar
-1. Abra o repositório local no seu PC.
-2. Copie os arquivos deste pacote por cima dos arquivos existentes.
-3. Arquivos que **não existiam antes** e devem ser criados:
-   - `src/lib/analytics.ts`
-   - `src/components/TrackingManager.tsx`
-   - `public/robots.txt`
-   - `public/sitemap.xml`
-   - `.env.example`
+- src/styles.css
+- src/components/Header.tsx
+- src/components/Footer.tsx
+- src/components/WhatsAppWidget.tsx
+- src/components/PageHero.tsx
+- src/components/ReviewsSection.tsx
+- src/routes/index.tsx
+- src/routes/oculos-de-grau.tsx
+- src/routes/oculos-de-sol.tsx
+- src/routes/lentes-de-contato.tsx
+- src/routes/ajuste-e-conserto.tsx
+- src/routes/contato.tsx
 
-## Depois rode
-```bash
-npm install
-npm run build
-```
+Depois rode:
 
-## Variáveis de ambiente
-Crie um `.env` com base no `.env.example`.
+npm run dev
 
-## O que este pacote melhora
-- visual do header/footer/widget
-- home mais focada em conversão
-- rastreamento preparado para GTM
-- SEO base melhorado
-- blog mais forte para autoridade
-- contato mais pronto para WhatsApp / rota / telefone
+Se der erro, mande o primeiro erro do terminal.

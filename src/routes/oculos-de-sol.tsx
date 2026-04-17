@@ -9,12 +9,7 @@ export const Route = createFileRoute("/oculos-de-sol")({
       { title: `Óculos de Sol em ${siteConfig.city} | ${siteConfig.name}` },
       {
         name: "description",
-        content: `Óculos de sol em ${siteConfig.city} (Rio Preto) com proteção UV e modelos para todos os estilos. Solar com grau disponível. Tradição desde ${siteConfig.foundedYear}.`,
-      },
-      { property: "og:title", content: `Óculos de Sol em ${siteConfig.city}` },
-      {
-        property: "og:description",
-        content: "Estilo, proteção e autoestima. Modelos clássicos e modernos.",
+        content: `Óculos de sol em ${siteConfig.city} com proteção UV, modelos para vários estilos e solar com grau disponível.`,
       },
     ],
   }),
@@ -23,11 +18,10 @@ export const Route = createFileRoute("/oculos-de-sol")({
 
 const benefits = [
   "Proteção UV de alta qualidade",
-  "Modelos clássicos, modernos e esportivos",
-  "Solar com grau (lentes solares com sua receita)",
-  "Lentes polarizadas para mais conforto",
-  "Marcas reconhecidas e opções exclusivas",
-  "Orientação para escolher o modelo ideal para o seu rosto",
+  "Modelos clássicos, modernos e cheios de personalidade",
+  "Solar com grau para mais praticidade",
+  "Lentes polarizadas para mais conforto visual",
+  "Ajuda para escolher o formato ideal para o seu rosto",
 ];
 
 function Page() {
@@ -35,21 +29,19 @@ function Page() {
     <>
       <PageHero
         eyebrow="Óculos de Sol"
-        title={`Óculos de sol em ${siteConfig.cityShort}: estilo, proteção e autoestima`}
-        intro={`Encontre o óculos solar perfeito para o seu rosto e o seu estilo. Modelos clássicos atemporais, esportivos e tendências, todos com proteção UV.`}
-        heroImage="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1400&q=80"
+        title={`Óculos de sol em ${siteConfig.cityShort}: estilo, proteção e presença`}
+        intro="Modelos solares selecionados para valorizar o rosto, proteger a visão e reforçar seu estilo com mais segurança."
+        heroImage="/images/home/vitrine-oculos-solar.jpg"
       />
 
       <section className="py-20 sm:py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
           <div>
             <h2 className="text-3xl font-semibold text-foreground sm:text-4xl">
-              Curadoria de óculos solares em Rio Preto
+              Curadoria real para quem quer comprar com mais confiança
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-              Selecionamos modelos pensando em qualidade, durabilidade e estilo. Nossa equipe ajuda
-              você a entender qual formato combina mais com o seu rosto e qual lente se encaixa
-              melhor na sua rotina.
+              A gente mostra o que veste bem no seu rosto, o que conversa com seu estilo e o que entrega proteção de verdade. É estética com orientação.
             </p>
             <ul className="mt-8 space-y-3">
               {benefits.map((b) => (
@@ -62,19 +54,24 @@ function Page() {
               ))}
             </ul>
           </div>
-          <div className="rounded-2xl bg-[var(--gradient-warm)] p-8 sm:p-10">
-            <h3 className="font-display text-2xl font-semibold text-foreground">
-              Veja modelos pelo WhatsApp
-            </h3>
+          <div className="rounded-[30px] bg-muted/80 p-8 shadow-[var(--shadow-card)] sm:p-10">
+            <img
+              src="/images/gallery/armacoes-solar-close.jpg"
+              alt="Óculos solares em destaque"
+              loading="lazy"
+              width={1080}
+              height={1350}
+              className="aspect-[4/5] w-full rounded-[24px] object-cover"
+            />
+            <h3 className="mt-6 text-2xl font-semibold text-foreground">Veja opções pelo WhatsApp</h3>
             <p className="mt-3 text-muted-foreground">
-              Conte para nós o estilo que você procura — clássico, moderno, esportivo. Enviamos
-              opções e tiramos suas dúvidas.
+              Fale com a equipe e conte qual estilo você procura. A gente mostra opções e ajuda na escolha.
             </p>
             <a
               href={buildWhatsAppUrl(whatsappMessages.sol)}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand px-7 py-4 text-base font-semibold text-brand-foreground shadow-[var(--shadow-elegant)] transition hover:scale-105"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--gradient-brand)] px-7 py-4 text-base font-semibold text-white shadow-[var(--shadow-elegant)] transition hover:scale-[1.02]"
             >
               <MessageCircle className="h-5 w-5" /> Falar no WhatsApp
             </a>
