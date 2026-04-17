@@ -5,7 +5,7 @@ export const localBusinessSchema = {
   "@type": "Optician",
   "@id": `${siteConfig.url}/#business`,
   name: siteConfig.name,
-  image: `${siteConfig.url}/favicon.png`,
+  image: siteConfig.defaultOgImage,
   url: siteConfig.url,
   telephone: `+55${siteConfig.phoneRaw}`,
   priceRange: "$$",
@@ -36,9 +36,23 @@ export const localBusinessSchema = {
       closes: "12:00",
     },
   ],
-  sameAs: [siteConfig.instagram].filter(Boolean),
+  areaServed: {
+    "@type": "City",
+    name: siteConfig.city,
+  },
+  sameAs: [siteConfig.instagram, siteConfig.googleBusinessUrl].filter(Boolean),
   foundingDate: String(siteConfig.foundedYear),
   description: siteConfig.description,
+};
+
+export const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteConfig.url}/#website`,
+  url: siteConfig.url,
+  name: siteConfig.name,
+  description: siteConfig.description,
+  inLanguage: "pt-BR",
 };
 
 export function buildFAQSchema(faqs: Array<{ q: string; a: string }>) {
@@ -50,5 +64,60 @@ export function buildFAQSchema(faqs: Array<{ q: string; a: string }>) {
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },
     })),
+  };
+}
+
+export function buildBreadcrumbSchema(items: Array<{ name: string; url: string }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}
+
+export function buildArticleSchema({
+  title,
+  description,
+  url,
+  image,
+  datePublished,
+  dateModified,
+  category,
+}: {
+  title: string;
+  description: string;
+  url: string;
+  image: string;
+  datePublished: string;
+  dateModified: string;
+  category: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    description,
+    image,
+    datePublished,
+    dateModified,
+    mainEntityOfPage: url,
+    articleSection: category,
+    author: {
+      "@type": "Organization",
+      name: siteConfig.name,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      logo: {
+        "@type": "ImageObject",
+        url: siteConfig.defaultOgImage,
+      },
+    },
   };
 }

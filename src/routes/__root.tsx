@@ -4,8 +4,9 @@ import appCss from "../styles.css?url";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppWidget } from "@/components/WhatsAppWidget";
+import { TrackingManager } from "@/components/TrackingManager";
 import { siteConfig } from "@/config/site";
-import { localBusinessSchema } from "@/lib/schema";
+import { localBusinessSchema, websiteSchema } from "@/lib/schema";
 
 function NotFoundComponent() {
   return (
@@ -19,7 +20,7 @@ function NotFoundComponent() {
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3 text-sm font-semibold text-brand-foreground transition hover:scale-105"
+            className="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3 text-sm font-semibold text-brand-foreground transition hover:translate-y-[-1px]"
           >
             Voltar ao início
           </Link>
@@ -38,10 +39,13 @@ export const Route = createRootRoute({
       { title: `${siteConfig.name} — Tradição em Rio Preto desde ${siteConfig.foundedYear}` },
       { name: "description", content: siteConfig.description },
       { name: "author", content: siteConfig.name },
+      { name: "keywords", content: siteConfig.keywords.join(", ") },
       { property: "og:site_name", content: siteConfig.name },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "pt_BR" },
+      { property: "og:image", content: siteConfig.defaultOgImage },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "robots", content: "index, follow" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -51,14 +55,25 @@ export const Route = createRootRoute({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap",
       },
     ],
     scripts: [
       {
         type: "application/ld+json",
+        children: JSON.stringify(websiteSchema),
+      },
+      {
+        type: "application/ld+json",
         children: JSON.stringify(localBusinessSchema),
       },
+      ...(siteConfig.gtmId
+        ? [
+            {
+              children: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${siteConfig.gtmId}');`,
+            },
+          ]
+        : []),
     ],
   }),
   shellComponent: RootShell,
@@ -73,6 +88,17 @@ function RootShell({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        {siteConfig.gtmId ? (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${siteConfig.gtmId}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+              title="Google Tag Manager"
+            />
+          </noscript>
+        ) : null}
         {children}
         <Scripts />
       </body>
@@ -83,6 +109,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   return (
     <div className="flex min-h-screen flex-col">
+      <TrackingManager />
       <Header />
       <main className="flex-1">
         <Outlet />

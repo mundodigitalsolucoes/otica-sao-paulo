@@ -5,7 +5,7 @@ const siteUrl = env.VITE_SITE_URL?.trim() || "https://oticasaopaulo.com.br";
 const gtmId = env.VITE_GTM_ID?.trim() || "";
 
 function buildGoogleReviewUrl(mode: "read" | "write", fallbackUrl: string) {
-  if (!googlePlaceId) return fallbackUrl;
+  if (!googlePlaceId || googlePlaceId === "YOUR_PLACE_ID") return fallbackUrl;
 
   return mode === "write"
     ? `https://search.google.com/local/writereview?placeid=${googlePlaceId}`
