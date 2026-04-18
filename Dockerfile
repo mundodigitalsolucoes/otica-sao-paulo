@@ -6,7 +6,6 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 FROM base AS builder
-ENV NODE_OPTIONS=--max-old-space-size=2048
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
@@ -18,10 +17,10 @@ ENV NODE_ENV=production
 ENV HOST=0.0.0.0
 ENV PORT=3000
 
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/.output ./.output
 COPY --from=builder /app/package.json ./package.json
 COPY --from=deps /app/node_modules ./node_modules
 
 EXPOSE 3000
 
-CMD ["node", "dist/server/index.js"]
+CMD ["node", ".output/server/index.mjs"]
