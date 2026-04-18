@@ -12,7 +12,6 @@ import {
   Award,
   Clock,
   CheckCircle2,
-  Star,
 } from "lucide-react";
 import { siteConfig, buildWhatsAppUrl, whatsappMessages } from "@/config/site";
 import { ReviewsSection } from "@/components/ReviewsSection";
@@ -184,9 +183,9 @@ function HomePage() {
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative float-soft">
             <div className="absolute -inset-4 rounded-[2rem] bg-white/15 blur-2xl" />
-            <div className="relative overflow-hidden rounded-[2rem] border border-white/20 bg-white/10 p-3 shadow-2xl">
+            <div className="shine-panel relative overflow-hidden rounded-[2rem] border border-white/20 bg-white/10 p-3 shadow-2xl">
               <div className="overflow-hidden rounded-[1.6rem] bg-white">
                 <img
                   src="/images/home/fachada-otica-sao-paulo.png"
@@ -241,7 +240,7 @@ function HomePage() {
             {services.map((service) => (
               <div
                 key={service.title}
-                className="flex h-full flex-col rounded-[1.75rem] border border-[#F2D2C1] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                className="shine-panel flex h-full flex-col rounded-[1.75rem] border border-[#F2D2C1] bg-white p-7 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
                 <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFF1E7] text-[#FA7806]">
                   <service.icon className="h-6 w-6" />
@@ -283,7 +282,7 @@ function HomePage() {
         <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
           <div className="relative">
             <div className="absolute -inset-3 rounded-[2rem] bg-[#F15638]/10 blur-2xl" />
-            <div className="relative overflow-hidden rounded-[2rem] border border-[#F2D2C1] bg-white p-3 shadow-lg">
+            <div className="shine-panel relative overflow-hidden rounded-[2rem] border border-[#F2D2C1] bg-white p-3 shadow-lg">
               <img
                 src="/images/home/especialistas-otica-sao-paulo.jpg"
                 alt="Equipe da Ótica São Paulo apresentando armações"
@@ -303,7 +302,7 @@ function HomePage() {
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-[#5B514B]">
               Aqui você não escolhe no escuro. Nossa equipe explica com clareza, ajuda a comparar
-              opções e recomenda o que realmente faz sentido para a sua rotina, seu conforto visual
+              opções e recomenda o que realmente faz sentido para sua rotina, seu conforto visual
               e sua autoestima.
             </p>
 
@@ -353,7 +352,7 @@ function HomePage() {
             {differentials.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[1.75rem] border border-white/20 bg-white/12 p-7 text-left backdrop-blur-sm"
+                className="shine-panel rounded-[1.75rem] border border-white/20 bg-white/12 p-7 text-left backdrop-blur-sm transition duration-300 hover:-translate-y-1"
               >
                 <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#FA7806]">
                   <item.icon className="h-6 w-6" />
