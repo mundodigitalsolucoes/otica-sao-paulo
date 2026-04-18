@@ -5,15 +5,14 @@ import {
   Glasses,
   Sun,
   Eye,
-  Wrench,
   Heart,
   ShieldCheck,
   Users,
   Sparkles,
   Award,
   Clock,
-  Check,
-  ArrowRight,
+  CheckCircle2,
+  Star,
 } from "lucide-react";
 import { siteConfig, buildWhatsAppUrl, whatsappMessages } from "@/config/site";
 import { ReviewsSection } from "@/components/ReviewsSection";
@@ -22,19 +21,15 @@ import { buildFAQSchema } from "@/lib/schema";
 const faqs = [
   {
     q: "Vocês trabalham com óculos de grau?",
-    a: "Sim. Trabalhamos com armações de diversos estilos, lentes monofocais, multifocais, antirreflexo e com filtro azul para diferentes rotinas e necessidades.",
+    a: "Sim. Trabalhamos com armações de diversos estilos e lentes monofocais, multifocais, antirreflexo e com filtro azul, sempre com orientação personalizada.",
   },
   {
     q: "Vocês vendem óculos de sol?",
-    a: "Sim. Temos modelos solares clássicos, modernos e com proteção UV. Também atendemos solar com grau.",
+    a: "Sim. Temos modelos solares de diferentes estilos, com proteção UV e opções para quem busca estética, conforto e qualidade.",
   },
   {
     q: "Trabalham com lentes de contato?",
-    a: "Sim. Atendemos lentes gelatinosas, tóricas e multifocais, com orientação completa sobre adaptação, uso e higiene.",
-  },
-  {
-    q: "Fazem ajuste e conserto?",
-    a: "Sim. Fazemos ajustes de hastes, plaquetas, troca de parafusos e pequenos reparos com agilidade.",
+    a: "Sim. Atendemos com orientação especializada para adaptação, uso correto e escolha do tipo de lente mais adequado.",
   },
   {
     q: "Onde fica a loja?",
@@ -42,7 +37,7 @@ const faqs = [
   },
   {
     q: "Posso pedir informações pelo WhatsApp?",
-    a: `Sim. Atendemos pelo WhatsApp ${siteConfig.whatsapp} com rapidez, clareza e orientação personalizada.`,
+    a: `Sim. Atendemos pelo WhatsApp ${siteConfig.whatsapp} com agilidade e atendimento humanizado.`,
   },
 ];
 
@@ -55,7 +50,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Ótica tradicional no centro de Rio Preto. Óculos de grau, óculos de sol, lentes de contato, ajustes e consertos com atendimento humanizado e orientação especializada.",
+          "Ótica tradicional no centro de Rio Preto. Óculos de grau, óculos de sol e lentes de contato com atendimento humanizado, confiança de gerações e orientação especializada.",
       },
       {
         property: "og:title",
@@ -63,9 +58,13 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:description",
-        content: siteConfig.description,
+        content:
+          "Desde 1976, a Ótica São Paulo atende gerações com orientação especializada, atendimento humanizado e soluções para enxergar melhor com conforto e estilo.",
       },
-      { property: "og:image", content: `${siteConfig.url}/brand/logo-otica-sao-paulo.png` },
+      {
+        property: "og:image",
+        content: `${siteConfig.url}/images/home/fachada-otica-sao-paulo.png`,
+      },
     ],
     scripts: [
       {
@@ -81,239 +80,197 @@ const services = [
   {
     icon: Glasses,
     title: "Óculos de Grau",
-    desc: "Armações modernas e clássicas com lentes pensadas para leitura, trabalho, direção e conforto no dia a dia.",
+    desc: "Armações e lentes com orientação para conforto, estética e escolha segura.",
     to: "/oculos-de-grau",
     msg: whatsappMessages.grau,
-    image: "/images/gallery/armacoes-grau-close.jpg",
   },
   {
     icon: Sun,
     title: "Óculos de Sol",
-    desc: "Modelos cheios de personalidade com proteção UV, estética premium e opções para diferentes estilos de rosto.",
+    desc: "Modelos solares para proteção, estilo e autoestima com curadoria da loja.",
     to: "/oculos-de-sol",
     msg: whatsappMessages.sol,
-    image: "/images/gallery/armacoes-solar-close.jpg",
   },
   {
     icon: Eye,
     title: "Lentes de Contato",
-    desc: "Orientação especializada para adaptação, higiene e escolha do tipo ideal para a sua rotina.",
+    desc: "Opções com orientação cuidadosa para adaptação, uso e rotina visual.",
     to: "/lentes-de-contato",
     msg: whatsappMessages.lentes,
-    image: "/images/home/especialistas-otica-sao-paulo.jpg",
-  },
-  {
-    icon: Wrench,
-    title: "Ajuste e Conserto",
-    desc: "Pequenos reparos, ajustes e cuidados que devolvem conforto e segurança ao seu óculos.",
-    to: "/ajuste-e-conserto",
-    msg: whatsappMessages.ajuste,
-    image: "/images/home/vitrine-oculos-grau.jpg",
   },
   {
     icon: Heart,
     title: "Atendimento Consultivo",
-    desc: "Ajudamos você a escolher com calma, clareza e segurança, sem pressa e sem empurrar produto.",
+    desc: "Atendimento com calma, clareza e ajuda real para escolher certo.",
     to: "/contato",
     msg: whatsappMessages.consultivo,
-    image: "/images/home/especialistas-otica-sao-paulo.jpg",
   },
 ];
 
 const trustItems = [
-  `Desde ${siteConfig.foundedYear}`,
-  "Atendimento personalizado",
-  "Óculos de grau, solar e lentes",
-  "Ajustes e consertos",
-  "Tradição no centro de Rio Preto",
+  { icon: Award, label: `Desde ${siteConfig.foundedYear}` },
+  { icon: Users, label: "Atendimento personalizado" },
+  { icon: Sparkles, label: "Óculos de grau, solar e lentes" },
+  { icon: MapPin, label: "Tradição no centro de Rio Preto" },
 ];
 
 const differentials = [
   {
     icon: Award,
     title: "Tradição local",
-    desc: `Quase 50 anos atendendo gerações de famílias em ${siteConfig.cityShort}.`,
+    desc: `Quase 50 anos atendendo famílias em ${siteConfig.cityShort} com confiança e proximidade.`,
   },
   {
     icon: Heart,
     title: "Atendimento humanizado",
-    desc: "Recebemos cada cliente com tempo, atenção e orientação de verdade.",
+    desc: "Aqui o cliente é ouvido com calma e orientado de forma clara.",
   },
   {
     icon: ShieldCheck,
     title: "Escolha segura",
-    desc: "Você entende o que está levando e escolhe com mais confiança.",
+    desc: "Ajudamos você a entender o que faz sentido para sua rotina e sua visão.",
   },
   {
     icon: Sparkles,
-    title: "Conforto e estética",
-    desc: "Armações bonitas, lentes adequadas e ajuste certo para o seu rosto.",
-  },
-  {
-    icon: Eye,
-    title: "Especialista acessível",
-    desc: "Explicação clara, sem linguagem difícil e sem empurrar solução errada.",
-  },
-  {
-    icon: Users,
-    title: "Confiança de gerações",
-    desc: "Pais, filhos e avós voltam porque já conhecem o cuidado da loja.",
+    title: "Estilo com conforto",
+    desc: "Beleza, ajuste e bem-estar no dia a dia, sem abrir mão da qualidade.",
   },
 ];
 
 function HomePage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-[var(--gradient-surface)]">
-        <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-brand/12 blur-3xl" />
-        <div className="absolute right-0 top-24 h-72 w-72 rounded-full bg-brand-orange/12 blur-3xl" />
-        <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1fr_1.02fr] lg:items-center lg:px-8 lg:py-24">
+      {/* 1ª DOBRA */}
+      <section className="bg-[#FA7806]">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:py-20">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-brand/18 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-brand shadow-[var(--shadow-card)]">
+            <p className="inline-flex items-center gap-2 rounded-full bg-white/18 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-white">
               <Award className="h-3.5 w-3.5" /> Desde {siteConfig.foundedYear}
-            </span>
-            <h1 className="mt-6 text-4xl font-semibold leading-[1.02] text-foreground sm:text-5xl lg:text-[4rem]">
-              Tradição para cuidar da sua visão.
-              <span className="block text-brand">Modernização para facilitar sua escolha.</span>
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              Desde {siteConfig.foundedYear}, a {siteConfig.name} atende gerações em {siteConfig.cityShort}
-              com orientação especializada, atendimento humanizado e soluções para enxergar melhor
-              com conforto e estilo.
             </p>
+
+            <h1 className="mt-6 text-4xl font-semibold leading-[1.02] text-white sm:text-5xl lg:text-[4.25rem]">
+              Tradição para cuidar
+              <br />
+              da sua visão.
+              <span className="mt-2 block text-[#2A211F]">
+                Modernização para facilitar sua escolha.
+              </span>
+            </h1>
+
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/92">
+              Desde 1976, a Ótica São Paulo atende gerações em Rio Preto com orientação
+              especializada, atendimento humanizado e soluções para enxergar melhor com
+              conforto e estilo.
+            </p>
+
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
-                href={buildWhatsAppUrl(whatsappMessages.default)}
+                href={buildWhatsAppUrl(whatsappMessages.consultivo)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gradient-brand)] px-7 py-4 text-base font-semibold text-white shadow-[var(--shadow-elegant)] transition hover:scale-[1.02]"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-7 py-4 text-base font-semibold text-white shadow-lg transition hover:scale-[1.02]"
               >
-                <MessageCircle className="h-5 w-5" /> Chamar no WhatsApp
+                <MessageCircle className="h-5 w-5" /> Fale com especialista
               </a>
+
               <a
                 href={siteConfig.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-white px-7 py-4 text-base font-semibold text-foreground transition hover:border-brand hover:text-brand"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white px-7 py-4 text-base font-semibold text-[#2A211F] transition hover:bg-white/95"
               >
                 <MapPin className="h-5 w-5" /> Ver localização
               </a>
             </div>
-            <div className="mt-8 flex flex-wrap gap-2.5">
-              {trustItems.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-border bg-white/88 px-4 py-2 text-sm font-medium text-foreground/82 shadow-[var(--shadow-card)]"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
           </div>
 
           <div className="relative">
-            <div className="grid gap-4 sm:grid-cols-[1.15fr_0.85fr]">
-              <div className="overflow-hidden rounded-[34px] rounded-bl-[110px] border border-white/70 bg-white p-3 shadow-[var(--shadow-elegant)]">
+            <div className="absolute -inset-4 rounded-[2rem] bg-white/15 blur-2xl" />
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/20 bg-white/10 p-3 shadow-2xl">
+              <div className="overflow-hidden rounded-[1.6rem] bg-white">
                 <img
-                  src="/images/home/especialistas-otica-sao-paulo.jpg"
-                  alt="Equipe da Ótica São Paulo apresentando armações"
-                  width={1080}
-                  height={1440}
-                  className="aspect-[4/5] w-full rounded-[28px] rounded-bl-[96px] object-cover"
+                  src="/images/home/fachada-otica-sao-paulo.png"
+                  alt="Fachada da Ótica São Paulo no centro de Rio Preto"
+                  className="aspect-[4/5] w-full object-cover"
+                  width={1200}
+                  height={1500}
                 />
               </div>
-              <div className="grid gap-4">
-                <div className="overflow-hidden rounded-[30px] rounded-tr-[90px] border border-white/70 bg-white p-3 shadow-[var(--shadow-soft)]">
-                  <img
-                    src="/images/gallery/armacoes-solar-close.jpg"
-                    alt="Seleção de óculos solares"
-                    width={1080}
-                    height={1350}
-                    className="aspect-[4/5] w-full rounded-[24px] rounded-tr-[72px] object-cover"
-                  />
-                </div>
-                <div className="overflow-hidden rounded-[30px] rounded-tl-[84px] border border-white/70 bg-white p-3 shadow-[var(--shadow-soft)]">
-                  <img
-                    src="/images/gallery/armacoes-grau-close.jpg"
-                    alt="Armações de óculos de grau"
-                    width={1080}
-                    height={1350}
-                    className="aspect-[4/5] w-full rounded-[24px] rounded-tl-[68px] object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="absolute -bottom-5 left-5 hidden max-w-xs rounded-[24px] border border-white/70 bg-white p-4 shadow-[var(--shadow-elegant)] md:block">
-              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-brand">Atendimento de confiança</p>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Ajudamos você a escolher com calma, clareza e segurança, do primeiro contato ao pós-venda.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-[var(--gradient-dark)] py-8 text-white" aria-label="Pilares de confiança">
-        <div className="mx-auto grid max-w-7xl gap-4 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-5 lg:px-8">
-          {trustItems.map((item) => (
-            <div key={item} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4">
-              <span className="inline-flex h-3 w-3 rounded-full bg-brand-orange" />
-              <span className="text-sm font-semibold text-white/88">{item}</span>
-            </div>
-          ))}
+      {/* 2ª DOBRA */}
+      <section className="bg-white py-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+            {trustItems.map((item) => (
+              <div
+                key={item.label}
+                className="flex items-center gap-3 rounded-2xl border border-[#F3D7C8] bg-white px-5 py-4 shadow-sm"
+              >
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#FFF1E7] text-[#FA7806]">
+                  <item.icon className="h-5 w-5" />
+                </span>
+                <span className="text-sm font-semibold leading-tight text-[#1F1A17]">
+                  {item.label}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="py-20 sm:py-24" aria-labelledby="services-heading">
+      {/* 3ª DOBRA */}
+      <section className="bg-[#FFF4EC] py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand">Nossos serviços</p>
-            <h2 id="services-heading" className="mt-3 text-4xl font-semibold text-foreground sm:text-5xl">
-              Soluções completas para visão, conforto e estilo
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#F15638]">
+              Nossos serviços
+            </p>
+            <h2 className="mt-3 text-4xl font-semibold text-[#1F1A17] sm:text-5xl">
+              Soluções para enxergar melhor com confiança
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Uma ótica tradicional precisa passar confiança. Uma ótica moderna precisa facilitar a sua decisão. Aqui você encontra os dois.
+            <p className="mt-4 text-lg text-[#5B514B]">
+              Atendimento especialista com a tradição de uma ótica que conhece o cliente pelo nome.
             </p>
           </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {services.map((s, index) => (
+
+          <div className="mt-12 grid gap-6 lg:grid-cols-4">
+            {services.map((service) => (
               <div
-                key={s.title}
-                className={`group overflow-hidden rounded-[30px] border border-border shadow-[var(--shadow-card)] transition hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)] ${index % 2 === 0 ? "bg-white" : "bg-muted/80"}`}
+                key={service.title}
+                className="flex h-full flex-col rounded-[1.75rem] border border-[#F2D2C1] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
               >
-                <div className="relative overflow-hidden px-6 pt-6">
-                  <div className="absolute right-0 top-0 h-28 w-28 rounded-full bg-brand/10 blur-2xl" />
-                  <img
-                    src={s.image}
-                    alt={s.title}
-                    loading="lazy"
-                    width={900}
-                    height={700}
-                    className="aspect-[16/10] w-full rounded-[22px] object-cover"
-                  />
-                </div>
-                <div className="p-6">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--gradient-brand)] text-white shadow-[var(--shadow-soft)]">
-                    <s.icon className="h-5 w-5" />
-                  </span>
-                  <h3 className="mt-5 text-2xl font-semibold text-foreground">{s.title}</h3>
-                  <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{s.desc}</p>
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    <a
-                      href={buildWhatsAppUrl(s.msg)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full bg-[var(--gradient-brand)] px-4 py-2.5 text-sm font-semibold text-white"
-                    >
-                      <MessageCircle className="h-4 w-4" /> WhatsApp
-                    </a>
-                    <Link
-                      to={s.to}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-brand hover:text-brand"
-                    >
-                      Saber mais <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </div>
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFF1E7] text-[#FA7806]">
+                  <service.icon className="h-6 w-6" />
+                </span>
+
+                <h3 className="mt-5 text-2xl font-semibold text-[#1F1A17]">
+                  {service.title}
+                </h3>
+
+                <p className="mt-3 flex-1 text-[15px] leading-relaxed text-[#5B514B]">
+                  {service.desc}
+                </p>
+
+                <div className="mt-6 flex flex-col gap-3">
+                  <a
+                    href={buildWhatsAppUrl(service.msg)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-sm font-semibold text-white transition hover:scale-[1.02]"
+                  >
+                    <MessageCircle className="h-4 w-4" /> Fale com especialista
+                  </a>
+
+                  <Link
+                    to={service.to}
+                    className="inline-flex items-center justify-center rounded-full border border-[#F2D2C1] px-5 py-3 text-sm font-semibold text-[#1F1A17] transition hover:border-[#FA7806] hover:text-[#FA7806]"
+                  >
+                    Saber mais
+                  </Link>
                 </div>
               </div>
             ))}
@@ -321,226 +278,193 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="bg-muted/80 py-20 sm:py-24" aria-labelledby="why-heading">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand">Por que escolher a Ótica São Paulo</p>
-              <h2 id="why-heading" className="mt-3 text-4xl font-semibold text-foreground sm:text-5xl">
-                Mais confiança na hora de escolher certo
-              </h2>
-              <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-                A decisão de compra em ótica mexe com conforto, autoestima e qualidade de vida. Por isso nosso atendimento é consultivo, próximo e claro.
-              </p>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-              {differentials.map((d) => (
-                <div key={d.title} className="rounded-[28px] border border-border bg-white p-6 shadow-[var(--shadow-card)]">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand/10 text-brand">
-                    <d.icon className="h-5 w-5" />
-                  </span>
-                  <h3 className="mt-4 text-xl font-semibold text-foreground">{d.title}</h3>
-                  <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{d.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 sm:py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:px-8">
+      {/* 4ª DOBRA */}
+      <section className="bg-white py-20 sm:py-24">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
           <div className="relative">
-            <div className="absolute -right-4 top-4 hidden h-20 w-20 rounded-[26px] bg-[var(--gradient-brand)] opacity-18 blur-2xl md:block" />
-            <div className="overflow-hidden rounded-[34px] rounded-tr-[110px] border border-white/70 bg-white p-3 shadow-[var(--shadow-elegant)]">
+            <div className="absolute -inset-3 rounded-[2rem] bg-[#F15638]/10 blur-2xl" />
+            <div className="relative overflow-hidden rounded-[2rem] border border-[#F2D2C1] bg-white p-3 shadow-lg">
               <img
                 src="/images/home/especialistas-otica-sao-paulo.jpg"
-                alt="Especialistas da Ótica São Paulo"
-                loading="lazy"
-                width={1080}
-                height={1440}
-                className="aspect-[4/5] w-full rounded-[28px] rounded-tr-[96px] object-cover"
+                alt="Equipe da Ótica São Paulo apresentando armações"
+                className="aspect-[4/5] w-full rounded-[1.5rem] object-cover object-center"
+                width={1200}
+                height={1500}
               />
             </div>
           </div>
+
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand">Especialista acessível</p>
-            <h2 className="mt-3 text-4xl font-semibold text-foreground sm:text-5xl">
-              Atendimento humano, técnico e sem pressa
-            </h2>
-            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-              Parte importante do nosso público é formada por famílias e clientes maduros. Por isso a gente valoriza uma experiência clara, acolhedora e respeitosa, com explicação simples e orientação correta.
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#F15638]">
+              Especialistas acessíveis
             </p>
-            <ul className="mt-7 space-y-3 text-base text-foreground/86">
+            <h2 className="mt-3 text-4xl font-semibold text-[#1F1A17] sm:text-5xl">
+              Atendimento que orienta de verdade
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-[#5B514B]">
+              Aqui você não escolhe no escuro. Nossa equipe explica com clareza, ajuda a comparar
+              opções e recomenda o que realmente faz sentido para a sua rotina, seu conforto visual
+              e sua autoestima.
+            </p>
+
+            <ul className="mt-7 space-y-3">
               {[
-                "Conversa clara para decidir com segurança",
-                "Ajuda para escolher armação, lente e formato ideal",
-                "Atendimento com calma para terceira idade e familiares",
-                "Pós-venda, ajustes e acompanhamento quando precisar",
+                "Atendimento com calma e explicação simples",
+                "Ajuda para escolher armação, lente e estilo",
+                "Confiança de gerações no centro de Rio Preto",
+                "Pós-venda próximo e humano",
               ].map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">
-                    <Check className="h-3.5 w-3.5" />
-                  </span>
-                  {item}
+                <li key={item} className="flex items-start gap-3 text-[#1F1A17]">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#FA7806]" />
+                  <span>{item}</span>
                 </li>
               ))}
             </ul>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+
+            <div className="mt-8">
               <a
                 href={buildWhatsAppUrl(whatsappMessages.consultivo)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gradient-brand)] px-7 py-4 text-base font-semibold text-white shadow-[var(--shadow-elegant)] transition hover:scale-[1.02]"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-7 py-4 text-base font-semibold text-white shadow-lg transition hover:scale-[1.02]"
               >
-                <MessageCircle className="h-5 w-5" /> Falar com um especialista
-              </a>
-              <a
-                href={siteConfig.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-white px-7 py-4 text-base font-semibold text-foreground transition hover:border-brand hover:text-brand"
-              >
-                <MapPin className="h-5 w-5" /> Ver localização
+                <MessageCircle className="h-5 w-5" /> Fale com especialista
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-[var(--gradient-dark)] py-20 text-white sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/75">Estilo e autoestima</p>
-            <h2 className="mt-3 text-4xl font-semibold sm:text-5xl">
-              Um site de ótica precisa mostrar produto de verdade
-            </h2>
-            <p className="mt-4 text-lg text-white/72">
-              Trouxemos para o layout as imagens reais da loja, das armações e da equipe para deixar a marca mais viva, mais confiável e mais premium.
-            </p>
+      {/* 5ª DOBRA */}
+      <section className="bg-[linear-gradient(135deg,#F15638_0%,#FA7806_100%)] py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/80">
+            Por que escolher a Ótica São Paulo
+          </p>
+          <h2 className="mt-3 text-4xl font-semibold text-white sm:text-5xl">
+            Tradição, confiança e escolha segura
+          </h2>
+          <p className="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-white/92">
+            Unimos atendimento humanizado, orientação especialista e uma loja tradicional que se
+            modernizou sem perder sua essência.
+          </p>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {differentials.map((item) => (
+              <div
+                key={item.title}
+                className="rounded-[1.75rem] border border-white/20 bg-white/12 p-7 text-left backdrop-blur-sm"
+              >
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#FA7806]">
+                  <item.icon className="h-6 w-6" />
+                </span>
+                <h3 className="mt-5 text-2xl font-semibold text-white">{item.title}</h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-white/88">{item.desc}</p>
+              </div>
+            ))}
           </div>
 
-          <div className="mt-12 grid gap-5 lg:grid-cols-[1.08fr_0.92fr]">
-            <div className="overflow-hidden rounded-[34px] rounded-bl-[120px] border border-white/10 bg-white/5 p-3">
-              <img
-                src="/images/home/vitrine-oculos-solar.jpg"
-                alt="Vitrine de óculos de sol da Ótica São Paulo"
-                loading="lazy"
-                width={1080}
-                height={1440}
-                className="aspect-[4/5] w-full rounded-[28px] rounded-bl-[96px] object-cover"
-              />
-            </div>
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
-              <div className="overflow-hidden rounded-[28px] rounded-tr-[90px] border border-white/10 bg-white/5 p-3">
-                <img
-                  src="/images/home/vitrine-oculos-grau.jpg"
-                  alt="Vitrine de óculos de grau da Ótica São Paulo"
-                  loading="lazy"
-                  width={1080}
-                  height={1440}
-                  className="aspect-[4/5] w-full rounded-[22px] rounded-tr-[74px] object-cover"
-                />
-              </div>
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-2">
-                <div className="overflow-hidden rounded-[24px] border border-white/10 bg-white/5 p-3">
-                  <img
-                    src="/images/gallery/armacoes-grau-close.jpg"
-                    alt="Armações de grau em destaque"
-                    loading="lazy"
-                    width={1080}
-                    height={1350}
-                    className="aspect-[4/5] w-full rounded-[18px] object-cover"
-                  />
-                </div>
-                <div className="overflow-hidden rounded-[24px] border border-white/10 bg-white/5 p-3">
-                  <img
-                    src="/images/gallery/armacoes-solar-close.jpg"
-                    alt="Óculos solares em destaque"
-                    loading="lazy"
-                    width={1080}
-                    height={1350}
-                    className="aspect-[4/5] w-full rounded-[18px] object-cover"
-                  />
-                </div>
-              </div>
-            </div>
+          <div className="mt-10">
+            <a
+              href={buildWhatsAppUrl(whatsappMessages.consultivo)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-7 py-4 text-base font-semibold text-white shadow-lg transition hover:scale-[1.02]"
+            >
+              <MessageCircle className="h-5 w-5" /> Fale com especialista
+            </a>
           </div>
         </div>
       </section>
 
+      {/* 6ª DOBRA */}
       <ReviewsSection />
 
-      <section className="py-20 sm:py-24">
+      {/* 7ª DOBRA */}
+      <section className="bg-white py-20 sm:py-24">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand">Nossa história</p>
-          <h2 className="mt-3 text-4xl font-semibold text-foreground sm:text-5xl">
-            Desde {siteConfig.foundedYear}, cuidando da visão de Rio Preto com tradição e evolução
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#F15638]">
+            Nossa história
+          </p>
+          <h2 className="mt-3 text-4xl font-semibold text-[#1F1A17] sm:text-5xl">
+            Desde 1976 cuidando da visão de Rio Preto
           </h2>
-          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-            A {siteConfig.name} nasceu com uma essência simples e poderosa: atender bem, orientar certo e construir relações de confiança. O tempo passou, a marca se modernizou, mas a base continua a mesma. Quem entra aqui sente que está falando com gente que entende do assunto e que se importa de verdade.
+          <p className="mt-6 text-lg leading-relaxed text-[#5B514B]">
+            A Ótica São Paulo nasceu com um compromisso simples e poderoso: atender bem, orientar
+            com honestidade e ajudar cada cliente a enxergar melhor com segurança. Décadas depois,
+            seguimos atendendo pais, filhos e netos com a mesma atenção de sempre.
           </p>
         </div>
       </section>
 
-      <section className="bg-muted/80 py-20 sm:py-24" aria-labelledby="faq-heading">
+      {/* 8ª DOBRA */}
+      <section className="bg-[#FFF4EC] py-20 sm:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand">Dúvidas frequentes</p>
-            <h2 id="faq-heading" className="mt-3 text-4xl font-semibold text-foreground sm:text-5xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#F15638]">
+              Dúvidas frequentes
+            </p>
+            <h2 className="mt-3 text-4xl font-semibold text-[#1F1A17] sm:text-5xl">
               Perguntas e respostas
             </h2>
           </div>
+
           <div className="mt-10 space-y-3">
-            {faqs.map((f) => (
+            {faqs.map((faq) => (
               <details
-                key={f.q}
-                className="group rounded-[26px] border border-border bg-white p-6 shadow-[var(--shadow-card)] open:shadow-[var(--shadow-soft)]"
+                key={faq.q}
+                className="group rounded-[1.5rem] border border-[#F2D2C1] bg-white p-6 shadow-sm"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold text-foreground">
-                  {f.q}
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand transition group-open:rotate-45">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold text-[#1F1A17]">
+                  {faq.q}
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FFF1E7] text-[#FA7806] transition group-open:rotate-45">
                     +
                   </span>
                 </summary>
-                <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">{f.a}</p>
+                <p className="mt-4 text-[15px] leading-relaxed text-[#5B514B]">{faq.a}</p>
               </details>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20 sm:py-24" aria-labelledby="contact-heading">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
-          <div className="rounded-[32px] bg-[var(--gradient-dark)] p-8 text-white shadow-[0_24px_70px_-30px_rgba(0,0,0,0.45)] sm:p-10">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/76">Onde estamos</p>
-            <h2 id="contact-heading" className="mt-3 text-4xl font-semibold sm:text-5xl">
+      {/* 9ª DOBRA */}
+      <section className="bg-white py-20 sm:py-24">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#F15638]">
+              Onde estamos
+            </p>
+            <h2 className="mt-3 text-4xl font-semibold text-[#1F1A17] sm:text-5xl">
               Visite nossa loja em Rio Preto
             </h2>
+
             <ul className="mt-8 space-y-5 text-base">
               <li className="flex gap-3">
-                <MapPin className="mt-1 h-5 w-5 shrink-0 text-brand-orange" />
+                <MapPin className="mt-1 h-5 w-5 shrink-0 text-[#FA7806]" />
                 <div>
-                  <p className="font-semibold text-white">Endereço</p>
-                  <p className="text-white/72">{siteConfig.address.full}</p>
+                  <p className="font-semibold text-[#1F1A17]">Endereço</p>
+                  <p className="text-[#5B514B]">{siteConfig.address.full}</p>
                 </div>
               </li>
+
               <li className="flex gap-3">
-                <Clock className="mt-1 h-5 w-5 shrink-0 text-brand-orange" />
+                <Clock className="mt-1 h-5 w-5 shrink-0 text-[#FA7806]" />
                 <div>
-                  <p className="font-semibold text-white">Horário</p>
-                  <p className="text-white/72">
+                  <p className="font-semibold text-[#1F1A17]">Horário</p>
+                  <p className="text-[#5B514B]">
                     {siteConfig.hours.weekdays}
                     <br />
                     {siteConfig.hours.saturday}
                   </p>
                 </div>
               </li>
+
               <li className="flex gap-3">
-                <MessageCircle className="mt-1 h-5 w-5 shrink-0 text-brand-orange" />
+                <MessageCircle className="mt-1 h-5 w-5 shrink-0 text-[#FA7806]" />
                 <div>
-                  <p className="font-semibold text-white">Contato</p>
-                  <p className="text-white/72">
+                  <p className="font-semibold text-[#1F1A17]">Contato</p>
+                  <p className="text-[#5B514B]">
                     Telefone: {siteConfig.phone}
                     <br />
                     WhatsApp: {siteConfig.whatsapp}
@@ -548,31 +472,34 @@ function HomePage() {
                 </div>
               </li>
             </ul>
-            <div className="mt-8 flex flex-wrap gap-3">
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
-                href={buildWhatsAppUrl(whatsappMessages.default)}
+                href={buildWhatsAppUrl(whatsappMessages.consultivo)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-brand-dark transition hover:bg-white/92"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-7 py-4 text-base font-semibold text-white shadow-lg transition hover:scale-[1.02]"
               >
-                <MessageCircle className="h-4 w-4" /> Chamar no WhatsApp
+                <MessageCircle className="h-5 w-5" /> Fale com especialista
               </a>
+
               <a
                 href={siteConfig.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/6 px-6 py-3 text-sm font-semibold text-white transition hover:border-brand-orange hover:text-brand-orange"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#F2D2C1] bg-white px-7 py-4 text-base font-semibold text-[#1F1A17] transition hover:border-[#FA7806] hover:text-[#FA7806]"
               >
-                <MapPin className="h-4 w-4" /> Traçar rota
+                <MapPin className="h-5 w-5" /> Traçar rota
               </a>
             </div>
           </div>
-          <div className="overflow-hidden rounded-[32px] border border-border bg-white p-3 shadow-[var(--shadow-card)]">
+
+          <div className="overflow-hidden rounded-[2rem] border border-[#F2D2C1] shadow-lg">
             <iframe
               src={siteConfig.mapsEmbed}
               title={`Mapa de ${siteConfig.name}`}
               loading="lazy"
-              className="h-full min-h-[440px] w-full rounded-[26px]"
+              className="h-full min-h-[420px] w-full"
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>

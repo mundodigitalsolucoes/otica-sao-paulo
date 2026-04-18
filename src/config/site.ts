@@ -1,21 +1,21 @@
-const env = import.meta.env;
-
-const googlePlaceId = env.VITE_GOOGLE_PLACE_ID?.trim() || "";
-const siteUrl = env.VITE_SITE_URL?.trim() || "https://oticasaopaulo.com.br";
-const gtmId = env.VITE_GTM_ID?.trim() || "";
-
-function buildGoogleReviewUrl(mode: "read" | "write", fallbackUrl: string) {
-  if (!googlePlaceId || googlePlaceId === "YOUR_PLACE_ID") return fallbackUrl;
-
-  return mode === "write"
-    ? `https://search.google.com/local/writereview?placeid=${googlePlaceId}`
-    : `https://search.google.com/local/reviews?placeid=${googlePlaceId}`;
-}
-
 /**
  * Configuração central editável da Ótica São Paulo.
  * Todos os dados de contato, endereço, SEO e mensuração ficam aqui.
  */
+
+const env = import.meta.env;
+
+const googlePlaceId =
+  env.VITE_GOOGLE_PLACE_ID?.trim() || "ChIJnX2jd1ytvZQRMkI31xP-bco";
+
+const siteUrl = env.VITE_SITE_URL?.trim() || "https://oticasaopaulo.com.br";
+const gtmId = env.VITE_GTM_ID?.trim() || "";
+
+function buildGoogleReviewsUrl(placeId: string, fallbackUrl: string) {
+  if (!placeId) return fallbackUrl;
+  return `https://search.google.com/local/reviews?placeid=${placeId}`;
+}
+
 export const siteConfig = {
   name: "Ótica São Paulo",
   shortName: "Ótica São Paulo",
@@ -65,21 +65,19 @@ export const siteConfig = {
   facebook: "",
 
   // Google Business
-  googleBusinessUrl: "https://www.google.com/search?q=Ótica+São+Paulo+São+José+do+Rio+Preto",
+  googleBusinessUrl:
+    "https://www.google.com/search?q=OTICA+SAO+PAULO+São+José+do+Rio+Preto",
   googlePlaceId,
-  googleReviewsUrl: buildGoogleReviewUrl(
-    "read",
-    "https://www.google.com/search?q=Ótica+São+Paulo+São+José+do+Rio+Preto"
+  googleReviewsUrl: buildGoogleReviewsUrl(
+    googlePlaceId,
+    "https://www.google.com/search?q=OTICA+SAO+PAULO+São+José+do+Rio+Preto"
   ),
-  googleWriteReviewUrl: buildGoogleReviewUrl(
-    "write",
-    "https://www.google.com/search?q=Ótica+São+Paulo+São+José+do+Rio+Preto"
-  ),
+  googleWriteReviewUrl: "https://g.page/r/CTJCN9cT_m3KEBM/review",
 
   // SEO / mensuração
   url: siteUrl,
   gtmId,
-  defaultOgImage: `${siteUrl}/favicon.png`,
+  defaultOgImage: `${siteUrl}/images/home/fachada-otica-sao-paulo.png`,
   keywords: [
     "ótica em São José do Rio Preto",
     "ótica em Rio Preto",
@@ -103,7 +101,8 @@ export const whatsappMessages = {
   lentes: "Olá! Vim pelo site e quero saber sobre lentes de contato.",
   ajuste:
     "Olá! Vim pelo site e gostaria de informações sobre ajuste ou conserto de óculos.",
-  como_chegar: "Olá! Vim pelo site e quero confirmar a localização da Ótica São Paulo.",
+  como_chegar:
+    "Olá! Vim pelo site e quero confirmar a localização da Ótica São Paulo.",
   consultivo: "Olá! Vim pelo site e gostaria de um atendimento consultivo.",
 } as const;
 
@@ -120,7 +119,6 @@ export const navLinks = [
   { to: "/oculos-de-grau", label: "Óculos de Grau" },
   { to: "/oculos-de-sol", label: "Óculos de Sol" },
   { to: "/lentes-de-contato", label: "Lentes de Contato" },
-  { to: "/ajuste-e-conserto", label: "Ajuste e Conserto" },
   { to: "/blog", label: "Blog" },
   { to: "/contato", label: "Contato" },
 ] as const;

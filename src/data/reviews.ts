@@ -1,6 +1,8 @@
 /**
- * Avaliações mockadas — substituir por integração com Google Places API.
- * Estrutura compatível com a resposta de Place Details (reviews[]).
+ * Avaliações do Google com fallback seguro.
+ * Fluxo:
+ * 1. tenta buscar reviews reais em /api/google-reviews
+ * 2. se não conseguir, usa mock para não quebrar o front
  */
 
 export interface GoogleReview {
@@ -62,17 +64,55 @@ export const mockReviews: GoogleReviewsData = {
   ],
 };
 
+function normalizeGoogleReviews(payload: any): GoogleReviewsData {
+  const reviews = Array.isArray(payload?.reviews)
+    ? payload.reviews
+        .filter((review: any) => review?.text || review?.author_name)
+        .map((review: any) => ({
+          author_name: review.author_name || "Cliente Google",
+          rating: Number(review.rating || 5),
+          relative_time_description:
+            review.relative_time_description || "avaliação recente",
+          text: review.text || "Cliente avaliou positivamente a Ótica São Paulo.",
+          profile_photo_url: review.profile_photo_url || undefined,
+        }))
+    : [];
+
+  return {
+    rating: Number(payload?.rating || mockReviews.rating),
+    user_ratings_total: Number(
+      payload?.user_ratings_total || mockReviews.user_ratings_total
+    ),
+    reviews: reviews.length ? reviews : mockReviews.reviews,
+    source: "api",
+  };
+}
+
 /**
- * Busca avaliações reais do Google Places API.
- * Retorna mock se a API não estiver configurada.
- *
- * Para ativar:
- * 1. Configurar Place ID em src/config/site.ts
- * 2. Criar endpoint backend (server function) que faça a chamada
- *    para Place Details com sua API Key (nunca expor key no front)
- * 3. Substituir esta função para chamar o endpoint
+ * Busca avaliações reais do endpoint backend.
+ * Se o endpoint não existir ou falhar, mantém fallback em mock.
  */
 export async function fetchGoogleReviews(): Promise<GoogleReviewsData> {
-  // TODO: integrar com Google Places API via backend
-  return mockReviews;
+  try {
+    const response = await fetch("/api/google-reviews", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      return mockReviews;
+    }
+
+    const payload = await response.json();
+
+    if (!payload) {
+      return mockReviews;
+    }
+
+    return normalizeGoogleReviews(payload);
+  } catch {
+    return mockReviews;
+  }
 }

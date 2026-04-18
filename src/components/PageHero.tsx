@@ -1,55 +1,40 @@
-import { siteConfig } from "@/config/site";
+import { MessageCircle } from "lucide-react";
+import { siteConfig, buildWhatsAppUrl, whatsappMessages } from "@/config/site";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
-interface ServicePageLayoutProps {
+interface PageHeroProps {
   eyebrow: string;
   title: string;
   intro: string;
   heroImage?: string;
-  children: React.ReactNode;
 }
 
-export function PageHero({ eyebrow, title, intro, heroImage }: Omit<ServicePageLayoutProps, "children">) {
+export function PageHero({ eyebrow, title, intro, heroImage }: PageHeroProps) {
   return (
-    <section className="relative overflow-hidden bg-[var(--gradient-surface)] py-18 sm:py-24">
-      <div className="absolute left-0 top-0 h-56 w-56 rounded-full bg-brand/10 blur-3xl" />
-      <div className="absolute bottom-0 right-0 h-64 w-64 rounded-full bg-brand-orange/12 blur-3xl" />
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8">
+    <section className="relative overflow-hidden bg-[var(--gradient-surface)] py-20 sm:py-24">
+      <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-brand/12 blur-3xl" />
+      <div className="absolute left-0 bottom-0 h-64 w-64 rounded-full bg-brand-orange/12 blur-3xl" />
+      <div className="relative mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_0.95fr] lg:items-center lg:px-8">
         <div>
-          <p className="inline-flex rounded-full border border-brand/20 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-brand shadow-[var(--shadow-card)]">
-            {eyebrow}
-          </p>
-          <h1 className="mt-5 text-4xl font-semibold text-foreground sm:text-5xl lg:text-[3.4rem]">{title}</h1>
-          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">{intro}</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand">{eyebrow}</p>
+          <h1 className="mt-4 text-4xl font-semibold text-foreground sm:text-5xl lg:text-[3.8rem]">{title}</h1>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">{intro}</p>
+          <a
+            href={buildWhatsAppUrl(whatsappMessages.consultivo)}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackWhatsAppClick(`${eyebrow}_cta`, eyebrow.toLowerCase())}
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand px-7 py-4 text-base font-semibold text-white shadow-[var(--shadow-elegant)] transition hover:scale-[1.02]"
+          >
+            <MessageCircle className="h-5 w-5" /> Fale com especialista
+          </a>
         </div>
-        {heroImage && (
-          <div className="relative">
-            <div className="absolute -left-4 -top-4 h-24 w-24 rounded-[32px] bg-[var(--gradient-brand)] opacity-18 blur-2xl" />
-            <div className="overflow-hidden rounded-[34px] rounded-bl-[110px] border border-white/70 bg-white p-3 shadow-[var(--shadow-elegant)]">
-              <img
-                src={heroImage}
-                alt={title}
-                loading="lazy"
-                width={1400}
-                height={1100}
-                className="aspect-[4/3] w-full rounded-[28px] rounded-bl-[96px] object-cover"
-              />
-            </div>
+        {heroImage ? (
+          <div className="overflow-hidden rounded-[34px] border border-white/70 bg-white p-3 shadow-[var(--shadow-elegant)] float-soft">
+            <img src={heroImage} alt={title} loading="lazy" width={1280} height={960} className="aspect-[4/3] w-full rounded-[28px] object-cover" />
           </div>
-        )}
+        ) : null}
       </div>
     </section>
-  );
-}
-
-export function ContactCTA({ message, label = "Falar no WhatsApp" }: { message: string; label?: string }) {
-  return (
-    <a
-      href={`https://wa.me/${siteConfig.whatsappRaw}?text=${encodeURIComponent(message)}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center justify-center rounded-full bg-[var(--gradient-brand)] px-7 py-4 text-base font-semibold text-white shadow-[var(--shadow-elegant)] transition hover:scale-[1.02]"
-    >
-      {label}
-    </a>
   );
 }
